@@ -2,11 +2,29 @@ import React from 'react';
 import styles from './Register.module.css';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Register() {
+  const navigate = useNavigate();
+  const [error , seterror] = useState(null);
+  const [isLoading, setisLoading] = useState(false);
 
-  function submitRegister(values) {
-    console.log(values)
+  async function submitRegister(values) {
+    setisLoading(true);
+    let {data} = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signup',values)
+    .catch(
+      (err)=>{
+        setisLoading(false);
+        console.log(err.response.data.message)
+        seterror(err.response.data.message);
+      }
+    );
+    if(data.message === 'success' ){
+      setisLoading(false);
+      navigate('/login');
+    }
   }
 
   const phoneRegExp = /^[0-9]{11}$/; // Assuming phone numbers are 10 digits long
@@ -35,6 +53,9 @@ export default function Register() {
   return (
     <div className="w-75 m-auto">
       <form onSubmit={formik.handleSubmit}>
+        
+        {error !== null ? <div className="alert alert-danger">{error}</div>:""}
+        
         <h4 className='my-2'>Register Here :</h4>
 
         <label htmlFor="name" className="m-2">Name :</label>
@@ -107,7 +128,12 @@ export default function Register() {
           <div className="alert alert-danger p-2 mt-2">{formik.errors.phone}</div>
         )}
 
-        <button disabled={!(formik.isValid && formik.dirty)} className="btn bg-main text-white mt-3" type="submit">Submit</button>
+
+        {isLoading ? <button className="btn bg-main text-white mt-3" type="button">
+          <i className='fas fa-spinner fa-spin'></i>
+        </button> : <button disabled={!(formik.isValid && formik.dirty)} className="btn bg-main text-white mt-3" type="submit">Submit</button>}
+        
+        
       </form>
     </div>
   );
