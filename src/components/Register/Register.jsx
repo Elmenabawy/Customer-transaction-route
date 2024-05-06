@@ -41,6 +41,7 @@ export default function Register() {
   let formik = useFormik({
     initialValues: {
       name: "",
+      email:"",
       phone: "",
       age: "",
       password: "",

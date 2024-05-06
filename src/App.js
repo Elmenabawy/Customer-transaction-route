@@ -1,13 +1,16 @@
 import './App.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Home from './Components/Home/Home'
-import Products from './Components/Products/Products'
-import Cart from './Components/Cart/Cart'
-import Brands from './Components/Brands/Brands'
-import Login from './Components/Login/Login'
-import Register from './Components/Register/Register'
-import Categories from './Components/Categories/Categories'
-import Layout from './Components/Layout/Layout'
+import Home from './Components/Home/Home';
+import Products from './Components/Products/Products';
+import Cart from './Components/Cart/Cart';
+import Brands from './Components/Brands/Brands';
+import Login from './Components/Login/Login';
+import Register from './Components/Register/Register';
+import Categories from './Components/Categories/Categories';
+import Layout from './Components/Layout/Layout';
+//import CounterContextProvider from './Context/CounterContext';
+import UserContextProvider from './Context/UserContext';
+
 
 let routes = createBrowserRouter([
   { path: '/', element: <Layout />, children: [
@@ -22,7 +25,20 @@ let routes = createBrowserRouter([
 ])
 
 function App() {
-  return <RouterProvider router={routes}></RouterProvider>
+  return <UserContextProvider>
+    {/* <CounterContextProvider>
+    </CounterContextProvider> */}
+    <RouterProvider router={routes}></RouterProvider>
+  </UserContextProvider>
+  // <UserContextProvider>
+  //   <CounterContextProvider>
+  //     <RouterProvider router={routes}></RouterProvider>
+  //   </CounterContextProvider>
+  // </UserContextProvider>
+  
+  
+
+
 }
 
 export default App;
