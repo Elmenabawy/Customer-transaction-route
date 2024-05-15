@@ -1,1 +1,7 @@
-.Login {}
+.Login {
+
+}
+.Login .LoginImg{
+    width: 100%;
+    width: 100px;
+}

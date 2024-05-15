@@ -14,7 +14,7 @@ export default function Register() {
 
   async function submitRegister(values) {
     setisLoading(true);
-    let { data } = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signup', values)
+    let { data } = await axios.post('https://gogreenserver-1-1.onrender.com/api/Registration', values)
       .catch(
         (err) => {
           setisLoading(false);
