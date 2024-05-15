@@ -7,8 +7,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../Context/UserContext';
+import LoginImg from '../../../src/Assets/images/Account.gif';
 export default function Login() {
-  let {setUserToken} = useContext(UserContext);
+  let { setUserToken } = useContext(UserContext);
   const navigate = useNavigate();
   const [error, seterror] = useState(null);
   const [isLoading, setisLoading] = useState(false);
@@ -26,7 +27,7 @@ export default function Login() {
     if (data.message === 'success') {
 
       setisLoading(false);
-      localStorage.setItem('userToken',data.token);
+      localStorage.setItem('userToken', data.token);
       setUserToken(data.token);
       navigate('/');
     }
@@ -40,7 +41,7 @@ export default function Login() {
 
   let formik = useFormik({
     initialValues: {
-      email:"",
+      email: "",
       password: "",
     },
     validationSchema: validationSchema,
@@ -48,56 +49,72 @@ export default function Login() {
   });
 
   return (
-    <div className="w-75 m-auto">
-      <form onSubmit={formik.handleSubmit}>
+    <div className="container rounded-3 d-flex justify-content-center align-items-center min-vh-100 " >
+      {/*___________________ main box ______________*/}
+      <div className="row border rounded-3 px-5 py-2 bg-white shadow box-area overflow-hidden ">
+        {/*---------------------- Login Gif --------------------*/}
+        <div className='col-md-6 d-flex justify-content-center align-items-center flex-column'>
+          <img src={LoginImg} alt="Login Gif" width={400} className='w-100' />
+        </div>
+        {/* --------------- Login Form ----------------*/}
+        <div className=" col-md-6 d-flex justify-content-center align-items-center flex-column">
+          <form onSubmit={formik.handleSubmit}>
 
-        {error !== null ? <div className="alert alert-danger">{error}</div> : ""}
+            {error !== null ? <div className="alert alert-danger">{error}</div> : ""}
 
-        <h4 className='my-2'>Login Here :</h4>
-
-
-        <label htmlFor="email" className="m-2">Email :</label>
-        <input
-          id="email"
-          name="email"
-          type="text"
-          className="form-control"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.email}
-        />
-        {formik.errors.email && formik.touched.email && (
-          <div className="alert alert-danger p-2 mt-2">{formik.errors.email}</div>
-        )}
-
-        <label htmlFor="password" className="m-2">Password :</label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          className="form-control"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.password}
-        />
-        {formik.errors.password && formik.touched.password && (
-          <div className="alert alert-danger p-2 mt-2">{formik.errors.password}</div>
-        )}
-
-        {isLoading ? <button className="btn bg-main text-white mt-3" type="button">
-          <i className='fas fa-spinner fa-spin'></i>
-        </button> :
-        <>
-            <div className='d-flex align-items-center justify-content-between mt-3'>
-              <button disabled={!(formik.isValid && formik.dirty)} className="btn bg-main text-white " type="submit">Login</button>
-              <Link  to={'/Register'}>Register Now</Link>
-          </div>
-            
-
-        </>}
+            <h4 className='my-2'>Login Here :</h4>
 
 
-      </form>
+            <label htmlFor="email" className="m-2">Email :</label>
+            <input
+              id="email"
+              name="email"
+              type="text"
+              className="form-control"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+            />
+            {formik.errors.email && formik.touched.email && (
+              <div className="alert alert-danger p-2 mt-2">{formik.errors.email}</div>
+            )}
+
+            <label htmlFor="password" className="m-2">Password :</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              className="form-control"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+            />
+            {formik.errors.password && formik.touched.password && (
+              <div className="alert alert-danger p-2 mt-2">{formik.errors.password}</div>
+            )}
+
+            {isLoading ? <button className="btn bg-main text-white mt-3" type="button">
+              <i className='fas fa-spinner fa-spin'></i>
+            </button> :
+              <>
+                <div className='d-flex align-items-center justify-content-between mt-3'>
+                  <button disabled={!(formik.isValid && formik.dirty)} className="btn bg-main text-white " type="submit">Login</button>
+                  <Link to={'/Register'}>Register Now</Link>
+                </div>
+
+
+              </>}
+
+
+          </form>
+        </div>
+      </div>
+
+
+
+
     </div>
+
+
   );
 }
