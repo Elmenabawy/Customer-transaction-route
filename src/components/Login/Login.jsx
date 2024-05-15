@@ -49,7 +49,7 @@ export default function Login() {
   });
 
   return (
-    <div className="container rounded-3 d-flex justify-content-center align-items-center min-vh-100 " >
+    <div className="container  d-flex justify-content-center align-items-center min-vh-100 " >
       {/*___________________ main box ______________*/}
       <div className="row border rounded-3 px-5 py-2 bg-white shadow box-area overflow-hidden ">
         {/*---------------------- Login Gif --------------------*/}
