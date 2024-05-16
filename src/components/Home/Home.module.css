@@ -1,1 +1,6 @@
-.Home {}
+/* styles.module.css */
+
+
+.image {
+  max-width: 100%;
+}

@@ -14,7 +14,7 @@ export default function Navbar() {
     navigate('/Login')
   }
   return <>
-    <nav className={`navbar navbar-expand-lg bg-main py-2`}>
+    <nav className="navbar navbar-expand-lg bg-light py-2 ">
       <div className="container">
         <Link className="navbar-brand" to="/">
           <i className={'logo cursor-pointer fs-2 fa-solid fa-solar-panel'}></i>
@@ -24,10 +24,15 @@ export default function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-            {userToken !== null && (
+            {userToken !== null && (<>
               <li className="nav-item">
-                <Link className="nav-link fs-4 cursor-pointer" to="/">Dashboard</Link>
+                <Link className="nav-link fs-4 cursor-pointer mx-2" to="/Home">Home</Link>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link fs-4 cursor-pointer mx-2" to="/Dashboard">Dashboard</Link>
+              </li>
+            </>
+              
             )}
           </ul>
           <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
@@ -38,10 +43,10 @@ export default function Navbar() {
             ) : (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link cursor-pointer fs-5 " to="/login">Login</Link>
+                  <Link className="nav-link cursor-pointer fs-5 " to="/Login">Login</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link cursor-pointer fs-5 " to="/register">Register</Link>
+                  <Link className="nav-link cursor-pointer fs-5 " to="/Register">Register</Link>
                 </li>
               </>
             )}
