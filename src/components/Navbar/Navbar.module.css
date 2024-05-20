@@ -1,3 +1,10 @@
-.navbar {
-    background-color: #7A801C !important ;
+.navBar {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.scrolled {
+  background-color: #ffffff; /* Add your desired background color for scrolled state */
 }

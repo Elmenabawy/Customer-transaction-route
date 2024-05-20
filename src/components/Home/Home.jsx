@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from 'react';
+// Home.jsx
+
+import React, { useState, useEffect } from 'react';
 import styles from './Home.module.css';
-import homeImage from '../../../src/Assets/images/background1.jpg';
-import Chart from '../Chart/Chart';
+import About from './About/About';
 export default function Home() {
 
-  return (
-    <div>
-      <img src={homeImage} alt="Homepage" className={styles.image} /> 
+  return (<>
+    <div className={styles.heroContainer}>
+      <div className={`${styles.overlay}`}></div>
+      <div className={`${styles.overlayContent}`}>
+        <h2 className='fw-bolder font-xxl'>Welcome to GoGreen Eco system</h2>
+        <p className='mt-3 font-lg'>Your source for sustainable energy solutions</p>
+      </div>
     </div>
-  )
+    <About/>
+  </>
+    
+  );
 }
