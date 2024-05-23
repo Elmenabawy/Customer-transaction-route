@@ -98,7 +98,7 @@ export default function Login() {
             </button> :
               <>
                 <div className='d-flex align-items-center justify-content-between mt-3'>
-                  <button disabled={!(formik.isValid && formik.dirty)} className="btn bg-main text-white " type="submit">Login</button>
+                  <button disabled={!(formik.isValid && formik.dirty)} className="bg-main btn text-white " type="submit">Login</button>
                   <Link to={'/Register'}>Register Now</Link>
                 </div>
 

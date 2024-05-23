@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from './Home.module.css';
-import About from './About/About';
+import About from '../About/About';
 export default function Home() {
 
   return (<>
