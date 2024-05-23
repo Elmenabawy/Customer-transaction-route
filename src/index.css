@@ -4,6 +4,7 @@
 {
     --main-color:#7A801C;
     --main-color-dark:#6E4F20;
+    --main-color-footer:#393D49;
     --light-color:#f0f3f2;
     --shadow: rgba(145,158,171,.2) 0px 2px 4px -1px,rgba(145,158,171,.14) 0px 4px 5px 0px,rgba(145,158,171,.12) 0px 1px 10px 0px;
     --font-family:'Encode Sans Expanded', sans-serif;
@@ -24,6 +25,13 @@ body{
 }
 .bg-main-dark{
     background-color: var(--main-color-dark)!important;
+}
+.bg-main-footer
+{
+    background-color: var(--main-color-footer)!important;
+}
+.light{
+    color: var(--light-color)!important;
 }
 a , a:hover{
     color: black;
