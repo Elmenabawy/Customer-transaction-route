@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 
-const ConsumptionRegistration = ({ onSubmit, isLoading , currentPage }) => {
+const ConsumptionRegistration = ({ onSubmit, isLoading, currentPage, goBack }) => {
     const navigate = useNavigate();
     const consumptionValidationSchema = Yup.object().shape({
         january: Yup.number().required("January consumption is required"),
@@ -227,13 +227,18 @@ const ConsumptionRegistration = ({ onSubmit, isLoading , currentPage }) => {
                 {isLoading ? <button className="btn bg-main-dark text-white mt-3" type="button" disabled>
                         <i className="fas fa-spinner fa-spin me-2"></i>
                     </button> : <>
-                        <button
-                            className="btn bg-main-dark text-white mt-3"
-                            type="submit"
-                            disabled={!formik.isValid || !formik.dirty}
-                        >
-                            Submit
-                        </button>
+                    <div className='d-flex justify-content-between'>
+                            <button
+                                className="btn bg-main-dark text-white mt-3"
+                                type="submit"
+                                disabled={!formik.isValid || !formik.dirty}
+                            >
+                                Submit
+                            </button>
+                            <button className="btn btn-outline-secondary   mt-3 me-2" onClick={goBack}>Back</button>
+
+                    </div>
+                        
                     </>
                 }
 

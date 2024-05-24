@@ -627,7 +627,7 @@ export default function Register() {
                   isLoading={isLoading}
                 />
                 
-                <button className="btn btn-outline bg-main-dark text-white mt-3 me-2" onClick={prevPage}>Back</button>
+                
               </>
             )}
 
