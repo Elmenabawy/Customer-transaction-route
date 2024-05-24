@@ -25,7 +25,7 @@ export default function Login() {
         }
       );
     if (data.message === 'success') {
-
+      console.log(data)
       setisLoading(false);
       localStorage.setItem('userToken', data.token);
       setUserToken(data.token);
