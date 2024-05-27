@@ -1,22 +1,10 @@
 import React from 'react';
 import styles from './Footer.module.css';
-import { Link } from 'react-router-dom';
-
 export default function Footer() {
-//   return <>
-//     <div className='footer bg-main-footer py-3'>
-//         <div className="footer-content">
-//           <h3 className="text-white">Contact Us <span className=''>
-//             <Link> @GoGreen</Link>
-//              </span>
-//           </h3>
-//         </div>
-//       </div>
-//   </>
-// }
+
 
   return (
-    <footer className='text-center bg-main-footer'>
+    <footer className='text-center bg-main-footer mt-4'>
       <div className='container p-4'>
         <section className='mb-4'>
           <button className='btn btn-outline-light m-1'>

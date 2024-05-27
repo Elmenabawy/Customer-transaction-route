@@ -1,0 +1,28 @@
+/* Weather.module.css */
+.wIcon{
+  width: 5rem;
+}
+.today .day {
+    padding: 5px 15px;
+    background: #3c3c44;
+    border-radius: 50px;
+    text-align: center;
+}
+
+.today .temp {
+    font-size: 18px;
+    padding-top: 15px;
+}
+
+
+.weatherForecastItem .day {
+    padding: 5px 15px;
+    background: #a1a1a1;
+    border-radius: 50px;
+    text-align: center;
+}
+
+.weatherForecastItem .temp {
+    font-weight: 100;
+    font-size: 12px;
+}
