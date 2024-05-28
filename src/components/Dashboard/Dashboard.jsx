@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './Dashboard.module.css';
 import Chart from '../Chart/Chart';
-import WeatherCard from '../WeatherCard/Weather';
+import WeatherCard from '../Weather/Weather';
+import WeekWeather from '../WeekWeather/WeakWeather';
 export default function Dashboard() {
   return <>
   <div className=''>
@@ -12,8 +13,13 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-6 w-100 ">
+        <div className="">
             <WeatherCard />
+        </div>
+      </div>
+      <div className="row">
+        <div className="">
+          <WeekWeather />
         </div>
       </div>
   </div>

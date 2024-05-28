@@ -1,0 +1,15 @@
+/* Weather.module.css */
+.wIcon{
+  width: 5rem;
+}
+
+
+
+
+.weatherForecastItem .day {
+    padding: 5px 15px;
+    background: #a1a1a1a3;
+    border-radius: 50px;
+    text-align: center;
+}
+

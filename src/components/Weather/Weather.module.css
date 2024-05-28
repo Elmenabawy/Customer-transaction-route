@@ -1,6 +1,6 @@
 /* Weather.module.css */
 .wIcon{
-  width: 5rem;
+  width: 3rem;
 }
 .today .day {
     padding: 5px 15px;
@@ -25,4 +25,17 @@
 .weatherForecastItem .temp {
     font-weight: 100;
     font-size: 12px;
+}
+.hourlyForecast {
+    display: flex;
+    overflow-x: auto;
+
+}
+
+.hourlyForecastItem {
+    flex: 0 0 auto;
+}
+
+.hourlyForecast::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome/Safari/Opera */
 }
