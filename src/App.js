@@ -5,6 +5,7 @@ import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import Layout from './Components/Layout/Layout';
 import Dashboard from './Components/Dashboard/Dashboard';
+import AdminPage from './Components/Admin/AdminPage';
 //import CounterContextProvider from './Context/CounterContext';
 import UserContextProvider from './Context/UserContext';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
@@ -14,7 +15,7 @@ let routes = createBrowserRouter([
   { path: '/', element: <Layout />, children: [
     { index: true, path:'/Home',element: <ProtectedRoute><Home /></ProtectedRoute>},
     { path: 'Dashboard', element: <ProtectedRoute><Dashboard /></ProtectedRoute>},
-    // { path: 'Cart', element: <ProtectedRoute><Cart /></ProtectedRoute> },
+    { path: 'Admin', element: <ProtectedRoute><AdminPage /></ProtectedRoute> },
     // { path: 'Categories', element: <ProtectedRoute><Categories /></ProtectedRoute>},
     // { path: 'Brands', element: <ProtectedRoute><Brands /></ProtectedRoute>},
     {path:'Login' , element:<Login/>},
