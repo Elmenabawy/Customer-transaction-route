@@ -1,1 +1,22 @@
-.Battery {}
+
+.batteryCapsule {
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #ddd;
+  padding: 2px;
+  display: flex;
+  align-items: center
+
+}
+
+.batteryFill {
+  height: 100%;
+  background-color: #23e182;
+  border-radius: 10px;
+}
+
+.batteryPercentage {
+  font-size: 12px;
+  margin-left: 5px;
+}
