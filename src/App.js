@@ -13,11 +13,9 @@ import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
 
 let routes = createBrowserRouter([
   { path: '/', element: <Layout />, children: [
-    { index: true, path:'/Home',element: <ProtectedRoute><Home /></ProtectedRoute>},
+    { index: true, path:'/',element: <ProtectedRoute><Home /></ProtectedRoute>},
     { path: 'Dashboard', element: <ProtectedRoute><Dashboard /></ProtectedRoute>},
     { path: 'Admin', element: <ProtectedRoute><AdminPage /></ProtectedRoute> },
-    // { path: 'Categories', element: <ProtectedRoute><Categories /></ProtectedRoute>},
-    // { path: 'Brands', element: <ProtectedRoute><Brands /></ProtectedRoute>},
     {path:'Login' , element:<Login/>},
     {path:'Register' , element:<Register/>},
   ] }

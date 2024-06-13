@@ -14,6 +14,7 @@ export default function Dashboard() {
           <Chart />
         </div>
       </div>
+      {/* weather */}
       {/* <div className="row">
         <div className="">
             <WeatherCard />

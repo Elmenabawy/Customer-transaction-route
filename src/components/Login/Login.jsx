@@ -101,20 +101,10 @@ export default function Login() {
                   <button disabled={!(formik.isValid && formik.dirty)} className="bg-main btn text-white " type="submit">Login</button>
                   <Link to={'/Register'}>Register Now</Link>
                 </div>
-
-
               </>}
-
-
           </form>
         </div>
       </div>
-
-
-
-
     </div>
-
-
   );
 }
