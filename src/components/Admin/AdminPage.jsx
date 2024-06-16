@@ -62,16 +62,12 @@ const AdminPage = () => {
   };
 
   const handleDeleteUser = async (userId) => {
-    try {
-      const token = getToken();
-      await axios.delete(`https://gogreenserver-1-1.onrender.com/api/admin/deleteUser/${userId}`, {
-        headers: { 'x-auth-token': token }
-      });
-      setRefreshTable(!refreshTable);
-      handleDeleteModalClose();
-    } catch (error) {
-      console.error('Error deleting user:', error);
-    }
+    const token = getToken();
+    await axios.delete(`https://gogreenserver-1-1.onrender.com/api/admin/deleteUser/${userId}`, {
+      headers: { 'x-auth-token': token }
+    });
+    setRefreshTable(!refreshTable);
+    handleDeleteModalClose();
   };
 
   const handleUpdateUser = async (updatedUserData) => {
@@ -110,9 +106,9 @@ const AdminPage = () => {
         <>
           <div className="container">
             <div className="row">
-                <div className="float-left">
-                  <AddUserModal addUser={handleAddUser} setRefreshTable={setRefreshTable} />
-                </div>
+              <div className="float-left">
+                <AddUserModal addUser={handleAddUser} setRefreshTable={setRefreshTable} />
+              </div>
             </div>
             <div className="table-responsive">
               <table className="table table-bordered table-striped">
@@ -132,13 +128,13 @@ const AdminPage = () => {
                         <td>{user.name}</td>
                         <td>{user.email}</td>
                         <td>
-                          <button
-                            type="button"
-                            className="btn btn-primary me-2"
-                            onClick={(e) => { e.stopPropagation(); handleUpdateModalOpen(user); }}
-                          >
-                            Update
-                          </button>
+                          <UpdateUserModal
+                            show={showUpdateModal && selectedUser === user}
+                            handleClose={handleUpdateModalClose}
+                            user={user}
+                            updateUser={handleUpdateUser}
+                            setRefreshTable={setRefreshTable}
+                          />
                           <button
                             type="button"
                             className="btn btn-danger"
@@ -178,8 +174,7 @@ const AdminPage = () => {
         <DeleteUserModal
           show={showDeleteModal}
           handleClose={handleDeleteModalClose}
-          user={selectedUser}
-          deleteUser={() => handleDeleteUser(selectedUser._id)}
+          onDelete={() => handleDeleteUser(selectedUser._id)}
         />
       )}
     </div>

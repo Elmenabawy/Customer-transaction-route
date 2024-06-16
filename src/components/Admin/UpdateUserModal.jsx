@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 
+
+
 const UpdateUserModal = ({ updateUser, user }) => {
     const [show, setShow] = useState(false);
     const [formData, setFormData] = useState(user || {
@@ -8,7 +10,7 @@ const UpdateUserModal = ({ updateUser, user }) => {
         email: '',
         password: '',
         rePassword: '',
-        phone: '',
+        phoneNumber: '',
         address: '',
     });
 
@@ -17,10 +19,7 @@ const UpdateUserModal = ({ updateUser, user }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
+        setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
     };
 
     const handleSubmit = (e) => {
@@ -31,7 +30,7 @@ const UpdateUserModal = ({ updateUser, user }) => {
 
     return (
         <>
-            <Button variant="info" onClick={handleShow} className='me-2'>
+            <Button variant="warning" onClick={handleShow} className='me-2'>
                 Update
             </Button>
             <Modal show={show} onHide={handleClose}>
@@ -62,28 +61,7 @@ const UpdateUserModal = ({ updateUser, user }) => {
                                 value={formData.email}
                             />
                         </Form.Group>
-                        <Form.Group>
-                            <label htmlFor="password" className="m-2">Password :</label>
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                className="form-control"
-                                onChange={handleChange}
-                                value={formData.password}
-                            />
-                        </Form.Group>
-                        <Form.Group>
-                            <label htmlFor="rePassword" className="m-2">Confirm Password :</label>
-                            <input
-                                id="rePassword"
-                                name="rePassword"
-                                type="password"
-                                className="form-control"
-                                onChange={handleChange}
-                                value={formData.rePassword}
-                            />
-                        </Form.Group>
+                            
                         <Form.Group>
                             <label htmlFor="phone" className="m-2">Phone :</label>
                             <input
@@ -92,7 +70,7 @@ const UpdateUserModal = ({ updateUser, user }) => {
                                 type="tel"
                                 className="form-control"
                                 onChange={handleChange}
-                                value={formData.phone}
+                                value={formData.phoneNumber}
                             />
                         </Form.Group>
                         <Form.Group>

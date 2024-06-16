@@ -1,42 +1,37 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-const DeleteUserModal = ({ userId, deleteUser }) => {
-    const [show, setShow] = useState(false);
+const DeleteUserModal = ({ show, handleClose, onDelete }) => {
+    const [loading, setLoading] = useState(false);
 
-    const handleDelete = () => {
-        deleteUser(userId);
-        handleClose(); // Close the modal after deletion
-    };
-
-    const handleClose = () => {
-        setShow(false);
-    };
-
-    const handleShow = () => {
-        setShow(true);
+    const handleDelete = async () => {
+        setLoading(true);
+        try {
+            await onDelete();
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
-        <>
-            <Button variant="danger" onClick={handleShow}>
-                Delete
-            </Button>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Confirm Deletion</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this user?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        No
-                    </Button>
-                    <Button variant="danger" onClick={handleDelete}>
-                        Yes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </>
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>Delete User</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                Are you sure you want to delete this user?
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Cancel
+                </Button>
+                <Button variant="danger" onClick={handleDelete} disabled={loading}>
+                    {loading ? 'Deleting...' : 'Delete'}
+                </Button>
+            </Modal.Footer>
+        </Modal>
     );
 };
 
