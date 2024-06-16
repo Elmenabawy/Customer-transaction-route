@@ -9,7 +9,7 @@ import { useContext } from 'react';
 import { UserContext } from '../../Context/UserContext';
 import LoginImg from '../../../src/Assets/images/Account.gif';
 export default function Login() {
-  let { setUserToken } = useContext(UserContext);
+  let { setUserToken, setIsAdmin } = useContext(UserContext);
   const navigate = useNavigate();
   const [error, seterror] = useState(null);
   const [isLoading, setisLoading] = useState(false);
@@ -29,7 +29,9 @@ export default function Login() {
       setisLoading(false);
       localStorage.setItem('userToken', data.token);
       setUserToken(data.token);
-      navigate('/');
+      setIsAdmin(data.user.isAdmin);
+
+      data.user.isAdmin ? navigate('/admin') : navigate('/dashboard');
     }
   }
 
