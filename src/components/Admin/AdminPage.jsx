@@ -1,102 +1,221 @@
-import React, { useState } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Modal, Button, Form } from 'react-bootstrap';
 import AddUserModal from './AddUserModal';
 import UpdateUserModal from './UpdateUserModal';
 import DeleteUserModal from './DeleteUserModal';
 
 const AdminPage = () => {
-  const [users, setUsers] = useState([
-    { id: 1, name: 'User 1', email: 'user1@example.com', expanded: false },
-    { id: 2, name: 'User 2', email: 'user2@example.com', expanded: false },
-    //Ay7aaaaaaaaaaagaaaaaaaaaaa
-  ]);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [refreshTable, setRefreshTable] = useState(false);
 
-  const addUser = (user) => {
-    setUsers([...users, { ...user, expanded: false }]);
+  const getToken = () => localStorage.getItem('userToken');
+
+  const fetchUsers = async () => {
+    setLoading(true);
+    try {
+      const token = getToken();
+      const response = await axios.get('https://gogreenserver-1-1.onrender.com/api/admin/getAllUsers', {
+        headers: { 'x-auth-token': token }
+      });
+      setUsers(response.data.users);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const deleteUser = (userId) => {
-    setUsers(users.filter(user => user.id !== userId));
-  };
-
-  const updateUser = (updatedUser) => {
-    setUsers(users.map(user => (user.id === updatedUser.id ? updatedUser : user)));
-  };
+  useEffect(() => {
+    fetchUsers();
+  }, [refreshTable]);
 
   const toggleExpand = (userId) => {
     setUsers(users.map(user => ({
       ...user,
-      expanded: user.id === userId ? !user.expanded : user.expanded
+      expanded: user._id === userId ? !user.expanded : user.expanded
     })));
   };
 
-  // Static consumption data
-  const staticConsumption = Array.from({ length: 12 }, (_, index) => ({
-    month: index + 1,
-    consumption: Math.floor(Math.random() * (500 - 200 + 1)) + 200,
-  }));
+  const handleUpdateModalOpen = (user) => {
+    setSelectedUser(user);
+    setShowUpdateModal(true);
+  };
+
+  const handleUpdateModalClose = () => {
+    setSelectedUser(null);
+    setShowUpdateModal(false);
+  };
+
+  const handleDeleteModalOpen = (user) => {
+    setSelectedUser(user);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteModalClose = () => {
+    setSelectedUser(null);
+    setShowDeleteModal(false);
+  };
+
+  const handleDeleteUser = async (userId) => {
+    try {
+      const token = getToken();
+      await axios.delete(`https://gogreenserver-1-1.onrender.com/api/admin/deleteUser/${userId}`, {
+        headers: { 'x-auth-token': token }
+      });
+      setRefreshTable(!refreshTable);
+      handleDeleteModalClose();
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
+
+  const handleUpdateUser = async (updatedUserData) => {
+    try {
+      const token = getToken();
+      const response = await axios.put(`https://gogreenserver-1-1.onrender.com/api/admin/updateUser/${updatedUserData._id}`, updatedUserData, {
+        headers: { 'x-auth-token': token }
+      });
+      const updatedUser = response.data.user;
+      setUsers(users.map(user => (user._id === updatedUser._id ? updatedUser : user)));
+      setRefreshTable(!refreshTable);
+      handleUpdateModalClose();
+    } catch (error) {
+      console.error('Error updating user:', error);
+    }
+  };
+
+  const handleAddUser = async (newUser) => {
+    try {
+      const token = getToken();
+      await axios.post('https://gogreenserver-1-1.onrender.com/api/Registration', newUser, {
+        headers: { 'x-auth-token': token }
+      });
+      setRefreshTable(!refreshTable);
+    } catch (error) {
+      console.error('Error adding user:', error);
+    }
+  };
 
   return (
-    <>
-      <div className="container my-5 p-3 bg-white shadow-lg rounded">
-        <h1>Admin Page</h1>
-        <AddUserModal addUser={addUser} />
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(user => (
-              <React.Fragment key={user.id}>
-                <tr onClick={() => toggleExpand(user.id)}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td >
-                    <UpdateUserModal user={user} updateUser={updateUser} />
-                    <DeleteUserModal userId={user.id} deleteUser={deleteUser} />
-                  </td>
-                </tr>
-                {user.expanded && (
+    <div className="container my-5 p-3 bg-white shadow-lg rounded">
+      <h1>Admin Page</h1>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <div className="container">
+            <div className="row">
+                <div className="float-left">
+                  <AddUserModal addUser={handleAddUser} setRefreshTable={setRefreshTable} />
+                </div>
+            </div>
+            <div className="table-responsive">
+              <table className="table table-bordered table-striped">
+                <thead className="thead-dark">
                   <tr>
-                    <td colSpan="4">
-                      <UserConsumption consumptionData={staticConsumption} />
-                    </td>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
                   </tr>
-                )}
-              </React.Fragment>
-            ))}
-          </tbody>
-        </Table>
-      </div>
-    </>
+                </thead>
+                <tbody>
+                  {users.map(user => (
+                    <React.Fragment key={user._id}>
+                      <tr onClick={() => toggleExpand(user._id)} style={{ cursor: 'pointer' }}>
+                        <td>{user._id}</td>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>
+                          <button
+                            type="button"
+                            className="btn btn-primary me-2"
+                            onClick={(e) => { e.stopPropagation(); handleUpdateModalOpen(user); }}
+                          >
+                            Update
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={(e) => { e.stopPropagation(); handleDeleteModalOpen(user); }}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                      {user.expanded && (
+                        <tr>
+                          <td colSpan="4">
+                            <UserDetails user={user} />
+                          </td>
+                        </tr>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </>
+      )}
+
+      {selectedUser && showUpdateModal && (
+        <UpdateUserModal
+          show={showUpdateModal}
+          handleClose={handleUpdateModalClose}
+          user={selectedUser}
+          updateUser={handleUpdateUser}
+          setRefreshTable={setRefreshTable} // Pass the setRefreshTable function as a prop
+        />
+      )}
+
+      {selectedUser && showDeleteModal && (
+        <DeleteUserModal
+          show={showDeleteModal}
+          handleClose={handleDeleteModalClose}
+          user={selectedUser}
+          deleteUser={() => handleDeleteUser(selectedUser._id)}
+        />
+      )}
+    </div>
   );
 };
 
-const UserConsumption = ({ consumptionData }) => (
-  <table className="table">
-    <thead>
-      <tr>
-        <th>Month</th>
-        <th>Consumption</th>
-      </tr>
-    </thead>
-    <tbody>
-      {consumptionData.map(data => (
-        <tr key={data.month}>
-          <td>{data.month}</td>
-          <td>{data.consumption}</td>
-        </tr>
-      ))}
-    </tbody>
-    <h4>package : 1</h4>
-  </table>
+const UserDetails = ({ user }) => {
+  const { months, packages } = user;
 
-);
+  return (
+    <div>
+      <h4>Consumption Data:</h4>
+      <table className="table table-bordered w-50">
+        <thead className="thead-dark">
+          <tr>
+            <th>Month</th>
+            <th>Consumption</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(months).map(([month, consumption]) => (
+            <tr key={month}>
+              <td>{month}</td>
+              <td>{consumption}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h4>Packages:</h4>
+      <ul className="list-group w-25">
+        {packages.map((pkg, index) => (
+          <li key={index} className="list-group-item">{pkg.prediction}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default AdminPage;
