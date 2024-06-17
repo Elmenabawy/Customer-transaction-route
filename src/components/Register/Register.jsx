@@ -662,7 +662,6 @@
 
 
 
-
 import React, { useState } from 'react';
 import styles from './Register.module.css';
 import axios from 'axios';
@@ -755,7 +754,12 @@ const Register = () => {
           throw new Error('Response data is undefined');
         }
         if (response.status === 201) { // Check the response status
+          const userId = response.data._id; // Get the user ID from the response data
+          // Fetch the prediction API
+          const predictionResponse = await axios.post(`https://gogreenserver-1-1.onrender.com/api/${userId}/savePackageDataFromAI`);
+          console.log('Prediction Response:', predictionResponse);
           setIsLoading(false);
+          console.log(response);
           navigate('/login');
         }
       } catch (err) {
@@ -765,6 +769,7 @@ const Register = () => {
       }
     },
   });
+
 
   return (
     <div className="container w-100 my-3 rounded-3 d-flex justify-content-center align-items-center">

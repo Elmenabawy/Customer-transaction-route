@@ -4,7 +4,9 @@ import Chart from '../Chart/Chart';
 import WeatherCard from '../Weather/Weather';
 import WeekWeather from '../WeekWeather/WeakWeather';
 import Battery from '../Battery/Battery';
-import ToggleSwitch from '../ToggleSwitch/ToggleSwitch'
+import ToggleSwitch from '../ToggleSwitch/ToggleSwitch';
+import Prediction from '../Prediction/Prediction';
+
 export default function Dashboard() {
   return <>
   <div className=''>
@@ -27,10 +29,13 @@ export default function Dashboard() {
       </div> */}
       <div className="container bg-white shadow-lg rounded my-4 py-4">
         <div className="row">
-          <div className="col-md-6 ">
+          <div className="col-md-4 ">
             <Battery />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4">
+            {/* <Prediction /> */}
+          </div>
+          <div className="col-md-4">
             <ToggleSwitch />
           </div>
         </div>
