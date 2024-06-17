@@ -1,14 +1,19 @@
-import React from 'react';
-import styles from './ProtectedRoute.module.css';
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
+import { UserContext } from '../../Context/UserContext';
+import { jwtDecode } from 'jwt-decode';
 
-export default function ProtectedRoute(props) {
+export default function ProtectedRoute({ children, requiredRole }) {
+  const { userToken } = useContext(UserContext);
 
-  if(localStorage.getItem('userToken') !==null){
-    return props.children
+  if (!userToken) {
+    return <Navigate to='/NotFound' />;
   }
-  else {
-    return <Navigate to={'/Login'} />
+
+  const decoded = jwtDecode(userToken);
+  if (requiredRole !== undefined && decoded.isAdmin !== requiredRole) {
+    return <Navigate to='/' />;
   }
 
+  return children;
 }

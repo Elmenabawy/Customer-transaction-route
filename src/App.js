@@ -9,15 +9,18 @@ import AdminPage from './Components/Admin/AdminPage';
 //import CounterContextProvider from './Context/CounterContext';
 import UserContextProvider from './Context/UserContext';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
+import Error404 from './Components/404/Error404';
 
 
 let routes = createBrowserRouter([
   { path: '/', element: <Layout />, children: [
-    { index: true, path:'/',element: <ProtectedRoute><Home /></ProtectedRoute>},
+    { index: true, path:'/',element: <Home />},
     { path: 'Dashboard', element: <ProtectedRoute><Dashboard /></ProtectedRoute>},
     { path: 'Admin', element: <ProtectedRoute><AdminPage /></ProtectedRoute> },
     {path:'Login' , element:<Login/>},
     {path:'Register' , element:<Register/>},
+    { path: 'NotFound', element: <Error404 /> },
+    { path: '*', element: <Error404 /> },
   ] }
 ])
 

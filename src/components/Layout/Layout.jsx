@@ -1,29 +1,28 @@
-import React from 'react';
-import styles from './Layout.module.css';
+// Components/Layout/Layout.js
+import React, { useEffect, useContext } from 'react';
 import { Outlet } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
-// import Home from '../Home/Home';
-import { useEffect , useContext } from 'react';
 import { UserContext } from '../../Context/UserContext';
 
-
 export default function Layout() {
-
-
-  let { setUserToken } = useContext(UserContext);
+  const { setUserToken, setIsAdmin } = useContext(UserContext);
 
   useEffect(() => {
-    if (localStorage.getItem('userToken') !== null) {
-      setUserToken(localStorage.getItem('userToken'))
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      const decoded = jwtDecode(token);
+      setUserToken(token);
+      setIsAdmin(decoded.isAdmin);
     }
+  }, [setUserToken, setIsAdmin]);
 
-  }, []);
-  
-  return <>
-  <Navbar/>
-  {/* <Home /> */}
-  <Outlet/>
-  <Footer />
-  </>
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </>
+  );
 }
