@@ -9,7 +9,7 @@ import LoginImg from '../../../src/Assets/images/Account.gif';
 import styles from './Login.module.css';
 
 export default function Login() {
-  const { setUserToken, setIsAdmin } = useContext(UserContext);
+  const { setUserToken, setIsAdmin, setPrediction } = useContext(UserContext);
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +30,8 @@ export default function Login() {
         // Set user token and isAdmin state
         setUserToken(token);
         setIsAdmin(decoded.isAdmin);
-
+        //i`ll change it later to data.package
+        setPrediction(data.user.packages.prediction);
         // Store the token in local storage
         localStorage.setItem('userToken', token);
 

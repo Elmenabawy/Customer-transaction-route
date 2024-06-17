@@ -33,7 +33,7 @@ export default function Dashboard() {
             <Battery />
           </div>
           <div className="col-md-4">
-            {/* <Prediction /> */}
+            <Prediction />
           </div>
           <div className="col-md-4">
             <ToggleSwitch />

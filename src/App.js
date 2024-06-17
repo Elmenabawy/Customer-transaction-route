@@ -6,7 +6,6 @@ import Register from './Components/Register/Register';
 import Layout from './Components/Layout/Layout';
 import Dashboard from './Components/Dashboard/Dashboard';
 import AdminPage from './Components/Admin/AdminPage';
-//import CounterContextProvider from './Context/CounterContext';
 import UserContextProvider from './Context/UserContext';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
 import Error404 from './Components/404/Error404';
@@ -26,25 +25,9 @@ let routes = createBrowserRouter([
 
 function App() {
 
-
-
-
-
-
   return <UserContextProvider>
-    {/* <CounterContextProvider>
-    </CounterContextProvider> */}
     <RouterProvider router={routes}></RouterProvider>
   </UserContextProvider>
-  // <UserContextProvider>
-  //   <CounterContextProvider>
-  //     <RouterProvider router={routes}></RouterProvider>
-  //   </CounterContextProvider>
-  // </UserContextProvider>
-  
-  
-
-
 }
 
 export default App;
