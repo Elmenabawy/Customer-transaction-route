@@ -36,7 +36,7 @@ export default function Login() {
           setPrediction(data.user.packages.prediction);
           // Store the token in local storage
           localStorage.setItem('userToken', token);
-
+          localStorage.setItem('prediction', data.user.packages.prediction);
           // Navigate based on isAdmin status
           decoded.isAdmin ? navigate('/admin') : navigate('/dashboard');
         } else {
