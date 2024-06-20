@@ -27,16 +27,13 @@ export default function Dashboard() {
           <WeekWeather />
         </div>
       </div>  */}
-      <div className="container bg-white shadow-lg rounded my-4 py-4">
+      <div className="container bg-white shadow-lg rounded my-4 py-4 ">
         <div className="row">
-          <div className="col-md-4 ">
+          <div className="col-md-6">
             <Battery />
           </div>
-          <div className="col-md-4">
+          <div className="col-md-6">
             <Prediction />
-          </div>
-          <div className="col-md-4">
-            <ToggleSwitch />
           </div>
         </div>
       </div>
