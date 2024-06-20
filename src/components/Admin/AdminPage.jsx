@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Modal, Button, Form } from 'react-bootstrap';
+import SkeletonLoader from './SkeletonLoader';
 import AddUserModal from './AddUserModal';
 import UpdateUserModal from './UpdateUserModal';
 import DeleteUserModal from './DeleteUserModal';
+import styles from './AdminPage.module.css';
 
 const AdminPage = () => {
   const [users, setUsers] = useState([]);
@@ -19,7 +20,7 @@ const AdminPage = () => {
     setLoading(true);
     try {
       const token = getToken();
-      const response = await axios.get('https://gogreenserver-1-1.onrender.com/api/admin/getAllUsers', {
+      const response = await axios.get('https://gogreenserver-1-1-numd.onrender.com/api/admin/getAllUsers', {
         headers: { 'x-auth-token': token }
       });
       setUsers(response.data.users);
@@ -63,7 +64,7 @@ const AdminPage = () => {
 
   const handleDeleteUser = async (userId) => {
     const token = getToken();
-    await axios.delete(`https://gogreenserver-1-1.onrender.com/api/admin/deleteUser/${userId}`, {
+    await axios.delete(`https://gogreenserver-1-1-numd.onrender.com/api/admin/deleteUser/${userId}`, {
       headers: { 'x-auth-token': token }
     });
     setRefreshTable(!refreshTable);
@@ -73,7 +74,7 @@ const AdminPage = () => {
   const handleUpdateUser = async (updatedUserData) => {
     try {
       const token = getToken();
-      const response = await axios.put(`https://gogreenserver-1-1.onrender.com/api/admin/updateUser/${updatedUserData._id}`, updatedUserData, {
+      const response = await axios.put(`https://gogreenserver-1-1-numd.onrender.com/api/admin/updateUser/${updatedUserData._id}`, updatedUserData, {
         headers: { 'x-auth-token': token }
       });
       const updatedUser = response.data.user;
@@ -88,7 +89,7 @@ const AdminPage = () => {
   const handleAddUser = async (newUser) => {
     try {
       const token = getToken();
-      await axios.post('https://gogreenserver-1-1.onrender.com/api/Registration', newUser, {
+      await axios.post('https://gogreenserver-1-1-numd.onrender.com/api/Registration', newUser, {
         headers: { 'x-auth-token': token }
       });
       setRefreshTable(!refreshTable);
@@ -101,7 +102,7 @@ const AdminPage = () => {
     <div className="container my-5 p-3 bg-white shadow-lg rounded">
       <h1>Admin Page</h1>
       {loading ? (
-        <p>Loading...</p>
+        <SkeletonLoader rowCount={7} />
       ) : (
         <>
           <div className="container">
@@ -166,7 +167,7 @@ const AdminPage = () => {
           handleClose={handleUpdateModalClose}
           user={selectedUser}
           updateUser={handleUpdateUser}
-          setRefreshTable={setRefreshTable} // Pass the setRefreshTable function as a prop
+          setRefreshTable={setRefreshTable}
         />
       )}
 
@@ -182,12 +183,12 @@ const AdminPage = () => {
 };
 
 const UserDetails = ({ user }) => {
-  const { months, packages } = user;
+  const { months} = user;
 
   return (
     <div>
       <h4>Consumption Data:</h4>
-      <table className="table table-bordered w-50">
+      <table className="table table-bordered">
         <thead className="thead-dark">
           <tr>
             <th>Month</th>
@@ -203,12 +204,7 @@ const UserDetails = ({ user }) => {
           ))}
         </tbody>
       </table>
-      <h4>Packages:</h4>
-      <ul className="list-group w-25">
-        {packages.map((pkg, index) => (
-          <li key={index} className="list-group-item">{pkg.prediction}</li>
-        ))}
-      </ul>
+      
     </div>
   );
 };

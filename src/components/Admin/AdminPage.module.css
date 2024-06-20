@@ -1,1 +1,47 @@
-.AdminPage {}
+.skeletonLoaderCard {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.skeletonLoaderAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f2f2f2;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+.skeletonLoaderText {
+  width: 100%;
+  height: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  margin: 10px;
+}
+
+.skeletonLoaderBtn {
+  width: 80px;
+  height: 30px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  margin: 10px;
+
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #f2f2f2;
+    transform: translateX(-10px);
+  }
+  50% {
+    background-color: #dcdcdc;
+    transform: translateX(10px);
+  }
+  100% {
+    background-color: #f2f2f2;
+    transform: translateX(-10px);
+  }
+}

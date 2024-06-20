@@ -60,7 +60,7 @@ const AddUserModal = ({ addUser, setRefreshTable }) => {
             };
 
             // Make the API call to register the user
-            const response = await axios.post('https://gogreenserver-1-1.onrender.com/api/Registration', apiData);
+            const response = await axios.post('https://gogreenserver-1-1-numd.onrender.com/api/Registration', apiData);
 
             // Handle the response
             if (response.status === 201 || response.status === 200) {

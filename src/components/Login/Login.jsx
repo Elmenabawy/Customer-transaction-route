@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 import { UserContext } from '../../Context/UserContext';
 import LoginImg from '../../../src/Assets/images/Account.gif';
 import styles from './Login.module.css';
@@ -17,31 +17,42 @@ export default function Login() {
   async function submitLogin(values) {
     setIsLoading(true);
     try {
-      const response = await axios.post('https://gogreenserver-1-1.onrender.com/api/login', values);
-      const { data } = response;
+      const response = await axios.post('https://gogreenserver-1-1-numd.onrender.com/api/login', values);
 
-      if (data.message === 'success') {
-        console.log(data);
+      if (response && response.data) {
+        const { data } = response;
+
+        if (data.message === 'success') {
+          console.log(data);
+          setIsLoading(false);
+
+          const { token } = data;
+          const decoded = jwtDecode(token);
+
+          // Set user token and isAdmin state
+          setUserToken(token);
+          setIsAdmin(decoded.isAdmin);
+          // I'll change it later to data.package
+          setPrediction(data.user.packages.prediction);
+          // Store the token in local storage
+          localStorage.setItem('userToken', token);
+
+          // Navigate based on isAdmin status
+          decoded.isAdmin ? navigate('/admin') : navigate('/dashboard');
+        } else {
+          // Handle the case where message is not 'success'
+          setIsLoading(false);
+          setError(data.message || 'Login failed');
+        }
+      } else {
+        // Handle the case where response or response.data is undefined
         setIsLoading(false);
-
-        const { token } = data;
-        const decoded = jwtDecode(token);
-
-        // Set user token and isAdmin state
-        setUserToken(token);
-        setIsAdmin(decoded.isAdmin);
-        //i`ll change it later to data.package
-        setPrediction(data.user.packages.prediction);
-        // Store the token in local storage
-        localStorage.setItem('userToken', token);
-
-        // Navigate based on isAdmin status
-        decoded.isAdmin ? navigate('/admin') : navigate('/dashboard');
+        setError('Unexpected error occurred');
       }
     } catch (err) {
       setIsLoading(false);
-      console.log(err.response.data.message);
-      setError(err.response.data.message);
+      console.error(err);
+      setError(err.response?.data?.message || 'An error occurred during login');
     }
   }
 

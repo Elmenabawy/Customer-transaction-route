@@ -14,7 +14,7 @@
 
 //   async function submitRegister(values) {
 //     setisLoading(true);
-//     let { data } = await axios.post('https://gogreenserver-1-1.onrender.com/api/Registration', values)
+//     let { data } = await axios.post('https://gogreenserver-1-1-numd.onrender.com/api/Registration', values)
 //       .catch(
 //         (err) => {
 //           setisLoading(false);
@@ -197,7 +197,7 @@
 //         ...consumptionData
 //       };
 
-//       const response = await axios.post('https://gogreenserver-1-1.onrender.com/api/Registration', requestData);
+//       const response = await axios.post('https://gogreenserver-1-1-numd.onrender.com/api/Registration', requestData);
 //       const responseData = response.data;
 //       if (!responseData) {
 //         throw new Error("Response data is undefined");
@@ -457,7 +457,7 @@
 
 //       console.log("Request Data:", JSON.stringify(requestData));
 
-//       const response = await axios.post('https://gogreenserver-1-1.onrender.com/api/Registration', requestData);
+//       const response = await axios.post('https://gogreenserver-1-1-numd.onrender.com/api/Registration', requestData);
 //       console.log('Response:', response); // Log the entire response object
 //       const responseData = response.data;
 //       if (!responseData) {
@@ -747,7 +747,7 @@ const Register = () => {
 
         console.log('Request Data:', JSON.stringify(requestData));
 
-        const response = await axios.post('https://gogreenserver-1-1.onrender.com/api/Registration', requestData);
+        const response = await axios.post('https://gogreenserver-1-1-numd.onrender.com/api/Registration', requestData);
         console.log('Response:', response); // Log the entire response object
         const responseData = response.data;
         if (!responseData) {
@@ -756,7 +756,7 @@ const Register = () => {
         if (response.status === 201) { // Check the response status
           const userId = response.data._id; // Get the user ID from the response data
           // Fetch the prediction API
-          const predictionResponse = await axios.post(`https://gogreenserver-1-1.onrender.com/api/${userId}/savePackageDataFromAI`);
+          const predictionResponse = await axios.post(`https://gogreenserver-1-1-numd.onrender.com/api/${userId}/savePackageDataFromAI`);
           console.log('Prediction Response:', predictionResponse);
           setIsLoading(false);
           console.log(response);

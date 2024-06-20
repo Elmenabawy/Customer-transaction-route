@@ -170,8 +170,9 @@ export default function Navbar() {
   let navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('userToken');
     setUserToken(null);
+    localStorage.removeItem('userToken');
+    
     navigate('/login');
     
      // This will refresh the page and reset the state

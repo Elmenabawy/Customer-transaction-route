@@ -21,12 +21,12 @@ export default function Dashboard() {
         <div className="">
             <WeatherCard />
         </div>
-      </div>
-      <div className="row">
+      </div>*/}
+      {/* <div className="row">
         <div className="">
           <WeekWeather />
         </div>
-      </div> */}
+      </div>  */}
       <div className="container bg-white shadow-lg rounded my-4 py-4">
         <div className="row">
           <div className="col-md-4 ">
